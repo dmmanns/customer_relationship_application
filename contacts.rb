@@ -1,3 +1,4 @@
+#created class called Contact => classes must start with a capital.
 class Contact
   attr_reader :id 
   attr_accessor :first_name, :last_name, :email, :notes
@@ -5,27 +6,34 @@ class Contact
   @@contacts = [] #class variable  
   @@id = 1
 
+#Used initialize method
 def initialize(first_name, last_name, options = {})
   @id = @@id
   @first_name = first_name
-  @last_name = first_name
-  @email = options [:email] 
-  @notes = options [:notes]
+  @last_name = last_name
+  if options[:email]
+    @email = options[:email] 
+  end
+
+  if options[:notes]
+    @notes = options[:notes]
+  end
   
   @@id += 1
 end 
 
-def self.create (first_name, last_name, options = {})
-    new_contact = Contact.new(first_name, last_name, options)
-	@@contacts << new_contact
+#create a new contact
+def self.create(first_name, last_name, options = {})
+	@@contacts << Contact.new(first_name, last_name, options)
 end
 
-def self.find (id)
+#find a contact for changing/modifcations  
+def self.find(id)
     @@contacts.each do |contact|
-if contact.id == id
-return contact 
-end
-end  
+      if contact.id == id
+        return contact 
+    end
+  end  
 end
 
 # # This is a more advanced way of updating 
@@ -34,19 +42,11 @@ end
 # end
 
 def self.all
-@@contacts
+    @@contacts
 end 
 
 def full_name
 	"#{first_name} #{last_name}"
 end
-
- #    def first_name
-	# @first_name
- #    end
-
- #    def first_name=(new_first_name)
-	# @first_name = new_first_name
- #    end
 
 end 
